@@ -92,3 +92,16 @@ one-liner keep-alive ping script
 ```bash
 while true; do ping -c 1 -W 1 10.10.175.254 && sleep 60 && hwclock -l; done
 ```
+---------------------------------
+You can achieve the desired functionality of adding a line break after each ping command and adding a warning if the ping fails by modifying your one-liner script slightly. Here's how you can do it:
+
+while true; do ping -c 1 10.10.205.192 && echo "Ping successful" || echo "Ping failed"; echo "---------------------"; sleep 60; done
+
+Let's break down what's happening here:
+
+ping -c 1 10.10.205.192: This pings the IP address 10.10.205.192 once (-c 1).
+&& echo "Ping successful" || echo "Ping failed": This part checks the exit status of the ping command. If the ping is successful (exit status 0), it echoes "Ping successful". If the ping fails (non-zero exit status), it echoes "Ping failed".
+echo "---------------------": This prints a line of dashes after each ping command, providing the line break you wanted.
+sleep 60: This pauses the script for 60 seconds before looping again.
+So, your entire one-liner script now:
+This script will continuously ping 10.10.205.192, display whether the ping was successful or failed, print a line of dashes as a separator, and then wait for 60 seconds before pinging again.
